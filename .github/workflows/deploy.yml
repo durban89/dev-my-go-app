@@ -31,10 +31,13 @@ jobs:
           terraform_version: "1.5.0"
 
       - name: "6. driver init (terraform init)"
+        working-directory: ./terraform
         run: terraform init
 
       - name: "7. generage upgrade plan (terraform plan)"
+        working-directory: ./terraform
         run: terraform plan -var="app_version=${{ github.sha }}" -out=tfplan
 
       - name: "8. online update (terraform apply)"
+        working-directory: ./terraform
         run: terraform apply -auto-approve tfplan
